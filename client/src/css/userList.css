@@ -1,0 +1,92 @@
+/* General Page Styles */
+.form-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Search and Filter Section */
+.search-input, .role-filter {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-input {
+    flex: 1;
+    max-width: 300px;
+}
+
+.role-filter {
+    flex: 1;
+    max-width: 200px;
+}
+
+/* DataTable Styles */
+.rdt_TableHeadRow {
+    background-color: #007bff !important;
+    color: #fff;
+}
+
+.rdt_TableHeadRow .rdt_TableCol {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.rdt_TableBodyRow {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.rdt_TableBodyRow:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+/* Header Component Styles */
+.header {
+    /* background-image: linear-gradient(#00d5ff, #0095ff, rgba(93, 0, 255, 0.555)); */
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+}
+
+.header__logo h1 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+}
+
+.header__nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__nav ul li {
+    margin-left: 20px;
+}
+
+.header__logout-button {
+    background-color: #ff4b5c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header__logout-button:hover {
+    background-color: #e94452;
+}

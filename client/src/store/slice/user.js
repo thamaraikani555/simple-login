@@ -3,7 +3,8 @@ import { AXIOS_POST, AXIOS_DELETE, AXIOS_GET, AXIOS_PATCH  } from './services/ap
 import { toastr } from 'react-redux-toastr';
 
 const initialState = {
-    userList: []
+    userList: [],
+    totalCount: 0
 }
 
 const userSlice = createSlice({
@@ -18,23 +19,25 @@ const userSlice = createSlice({
 })
 
 
-export const getUsers = (searchKey = '') => async (dispatch) => {
-    const response = await AXIOS_GET(`/user/get-all-user`);
+export const getUsers = (page = 1, limit = 10, searchKey = '') => async (dispatch) => {
+    const skip = (page - 1) * limit;
+    const response = await AXIOS_GET(`/user/get-all-user?skip=${skip}&limit=${limit}&searchKey=${searchKey}`);
+    console.log(response?.data)
     if (response?.data && response?.data.length) {
-        dispatch(userSlice.actions.getUsersList({ userList: response?.data }))
+        dispatch(userSlice.actions.getUsersList({ userList: response?.data, totalCount: response.totalCount }))
     }else{
-        dispatch(userSlice.actions.getUsersList({ userList: []}))
+        dispatch(userSlice.actions.getUsersList({ userList: [], totalCount: 0}))
     }
 };
   
 
 export const saveNewUser = (payload, history) => async (dispatch) => {
     const response = await AXIOS_POST('/user/signup', payload, {});
-    if (response?.data) {         
+    if (response?.status) {         
         toastr.success('Success',  response?.message);
         return true
     } else{
-        toastr.error('Error', response?.message);    
+        toastr.error('Error', "Internal Server Error");    
         return false
     }
 };

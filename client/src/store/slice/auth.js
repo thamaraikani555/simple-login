@@ -26,14 +26,13 @@ const authSlice  = createSlice({
 export const loginMethod = (payload, history) => async (dispatch) => {  
     
     const response = await AXIOS_POST('/auth/login', payload, {});
-    console.log('== response ', response)
-    if(response?.data?.status){
+    if(response.status == true){
         let token = response?.token;
         localStorage.setItem('authToken', token);
         toastr.success('Success',  response?.message);
         return true
     }else{
-        toastr.error('Error', response?.message);    
+        toastr.error('Error', response?.data?.message);    
         return false    
     }
 };

@@ -7,6 +7,8 @@ const UserList = () => {
 
     const { userList } = useSelector((state)=>state.user);
     const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredUsers, setFilteredUsers] = useState([]);
 
     useEffect(() => {
         getallUser();           
@@ -15,8 +17,7 @@ const UserList = () => {
     const getallUser = async () => {
         await dispatch( getUsers() );
     }
-    const [users, setUsers] = useState([]);
-
+    
     return (
         <div className="form-container">
             <h2>User List</h2>
