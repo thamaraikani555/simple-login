@@ -4,10 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "../store/slice/user";
 import Header from "./Header";
 import '../css/userList.css';
+import { useHistory } from 'react-router-dom';
 
 const UserList = () => {
     const { userList, totalCount } = useSelector((state) => state.user);
     const dispatch = useDispatch();
+    const history = useHistory();
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
@@ -49,13 +51,17 @@ const UserList = () => {
         setFilteredUsers(filtered);
     };
 
+    const handleRowClick = (row) => {
+        history.push(`/user/${row._id}`);
+    };
+
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
 
     const handlePerRowsChange = (newPerPage, page) => {
         setPerPage(newPerPage);
-        setCurrentPage(page); // Reset to page 1 when changing rows per page
+        setCurrentPage(page); 
     };
 
     const columns = [
@@ -99,6 +105,7 @@ const UserList = () => {
                 paginationTotalRows={totalCount}
                 onChangeRowsPerPage={handlePerRowsChange}
                 onChangePage={handlePageChange}
+                onRowClicked={handleRowClick} 
                 subHeader
                 subHeaderComponent={
                     <div style={{ display: 'flex', gap: '10px' }}>

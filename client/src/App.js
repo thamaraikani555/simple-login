@@ -6,6 +6,7 @@ import Signup from './pages/Register';
 // import Signup from './pages/SignUp';
 // import UserList from './pages/UserList';
 import UserTableList from './pages/UserTableData';
+import UserProfile from './pages/UserProfile';
 import PrivateRoute from '././components/PrivateRoute'; 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/login" component={LoginOne} />
                 
                 <PrivateRoute path="/users" component={UserTableList} />
+                <PrivateRoute path="/user/:userId" component={UserProfile} />
                 <Redirect to="/login" />
             </Switch>
         </Router>

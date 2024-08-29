@@ -4,6 +4,7 @@ import { toastr } from 'react-redux-toastr';
 
 const initialState = {
     userList: [],
+    singleUser: {},
     totalCount: 0
 }
 
@@ -15,6 +16,9 @@ const userSlice = createSlice({
           state.userList = action.payload.userList;
           state.totalCount = action.payload.totalCount;
       },
+      getSingleUser(state, action){
+            state.singleUser = action.payload.singleUser;
+      }
     },
 })
 
@@ -30,6 +34,16 @@ export const getUsers = (page = 1, limit = 10, searchKey = '') => async (dispatc
     }
 };
   
+
+export const getUserById = (userId) => async (dispatch) => {
+    const response = await AXIOS_GET(`/user/get-user/by/${userId}`);
+    if(response?.data?._id){
+        dispatch(userSlice.actions.getSingleUser({ singleUser: response?.data }))
+    }else{
+        dispatch(userSlice.actions.getSingleUser({ singleUser: {}}))
+
+    }
+};
 
 export const saveNewUser = (payload, history) => async (dispatch) => {
     const response = await AXIOS_POST('/user/signup', payload, {});
