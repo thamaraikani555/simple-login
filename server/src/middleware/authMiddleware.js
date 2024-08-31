@@ -23,16 +23,23 @@ const tokenAuthendication = async (req, res, next) => {
         }
 
         let role = decoded.role;
-        if(role && role == 'Admin'){
-            const user = await UserSchema.findOne({_id: decoded._id});
-            if (!user) {
-                return res.status(403).json({  status: false, message: 'Invalid Token!' });
-            }
-            req.user = user;
-            next();
-        }else{
-            return res.status(403).json({  status: false, data: [], message: 'Admin Can only view the list' });
+        const user = await UserSchema.findOne({_id: decoded._id});
+        if (!user) {
+            return res.status(403).json({  status: false, message: 'Invalid Token!' });
         }
+        req.user = user;
+        next();
+
+        // if(role && role == 'Admin'){
+        //     const user = await UserSchema.findOne({_id: decoded._id});
+        //     if (!user) {
+        //         return res.status(403).json({  status: false, message: 'Invalid Token!' });
+        //     }
+        //     req.user = user;
+        //     next();
+        // }else{
+        //     return res.status(403).json({  status: false, data: [], message: 'Admin Can only view the list' });
+        // }
        
     } catch (err) {
         console.log('=== err ', err)
