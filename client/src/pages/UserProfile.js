@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getUserById } from "../store/slice/user";
 import "../css/UserProfile.css"
+import Header from "./Header";
 
 const UserProfile = () => {
     const { userId } = useParams();
@@ -29,16 +30,22 @@ const UserProfile = () => {
     if (!user) return <div className="loading">Loading...</div>;
 
     return (
-        <div className="user-profile-container">
-            <div className="user-profile-card">
-                <h2 className="user-name">{user.firstName} {user.lastName}</h2>
-                <div className="user-info">
-                    <p><strong>Email:</strong> {user.email}</p>
-                    <p><strong>Role:</strong> {user.role}</p>
-                    <p><strong>Phone:</strong> {user.mobileNo}</p>
+        <>            
+            <div className="form-container" style={{ width: '90%', margin: '10px auto', height: "95vh" }}>
+                <Header />
+                <div className='user-profile-container'>
+                    <div className="user-profile-card">
+                        <h2 className="user-name">{user.firstName} {user.lastName}</h2>
+                        <div className="user-info">
+                            <p><strong>Email:</strong> {user.email}</p>
+                            <p><strong>Role:</strong> {user.role}</p>
+                            <p><strong>Phone:</strong> {user.mobileNo}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
+       
     );
 };
 

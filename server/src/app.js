@@ -2,9 +2,7 @@
     'use strict';
   
     const express = require('express');
-    const device = require('express-device');
     const http = require('http');
-    const { Server } = require("socket.io");
     const debugModule = require('debug');
     const path = require('path');
     const dotenv = require('dotenv');
@@ -16,13 +14,8 @@
     const app = express();
     connectDB();
     app.use(cors());
-    app.use(express.static(path.join(__dirname, '..', 'public')));
-    app.use(express.static(path.join(__dirname, '..', 'uploads')));
-    app.use('/uploads', express.static('uploads'));
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    app.use(device.capture());
-    
+    app.use(express.urlencoded({ extended: true }));    
     const debug = debugModule('myapp:server');
     const port = normalizePort(process.env.PORT || '3000');
     app.set('port', port);
@@ -32,8 +25,7 @@
     server.on('error', onError);
     server.on('listening', onListening);
 
-    routeConfig.init(app, '/api/v1'); 
-   
+    routeConfig.init(app, '/api/v1');    
     console.log('listening port', process.env.PORT);
     
     function normalizePort(val) {

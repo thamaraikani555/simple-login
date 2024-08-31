@@ -24,7 +24,12 @@ const Register = () => {
     const [isButtondisabled, setButton] = useState(false)
     
     const handleChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setErrors({ ...errors, [name]: '' });
+        setFormData({ ...formData, [name]: value });
+        if (name === 'mobileNo' && !/^\d{0,10}$/.test(value)) {
+            setErrors({ ...errors, mobileNo: "Phone number must be exactly 10 digits." });
+        }
     };
 
     const handleSubmit = async e => {
@@ -48,7 +53,7 @@ const Register = () => {
         if (!formData.mobileNo) {
             newErrors.mobileNo = "Phone number is required.";
         } else if (!/^\d{10}$/.test(formData.mobileNo)) {
-            newErrors.mobileNo = "Phone number is invalid.";
+            newErrors.mobileNo = "Phone number must be exactly 10 digits.";
         }
     
         if (!formData.password) {
